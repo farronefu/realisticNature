@@ -1,0 +1,8 @@
+assets/
+local/
+*.blend1
+*.blend2
+__pycache__/
+*.log
+renders/*.exr
+optix7cache.db*

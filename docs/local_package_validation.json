@@ -1,0 +1,26 @@
+{
+  "repository": {
+    "file": "ForestPath.blend",
+    "bytes": 33745892,
+    "sha256": "f38ce1a44a4108a3b509bd62d84e488062ed9712e89e5a79f3c5d50660d848af",
+    "objects": 5038,
+    "used_images": 56,
+    "packed_images": 0,
+    "missing_images": [],
+    "rock_moss_opacity_materials": [
+      "rock_moss_set_01"
+    ]
+  },
+  "local_packed": {
+    "file": "ForestPath_Local_Packed.blend",
+    "bytes": 616810442,
+    "sha256": "f465933f9e57854505552bb2528d7c563f6a98a6f9ed50fe0c50d7a180394a3c",
+    "objects": 5038,
+    "used_images": 56,
+    "packed_images": 56,
+    "missing_images": [],
+    "rock_moss_opacity_materials": [
+      "rock_moss_set_01"
+    ]
+  }
+}

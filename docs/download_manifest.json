@@ -1,0 +1,110 @@
+[
+  {
+    "asset": "pine_roots",
+    "path": "assets/pine_roots/pine_roots_2k.blend",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/2k/pine_roots/pine_roots_2k.blend",
+    "bytes": 8416952,
+    "sha256": "c1fac77bb91e0ccfead9d8d9459050f0cacc1607be97e41fd08c2f44de09cdad",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/pine_roots"
+  },
+  {
+    "asset": "pine_roots",
+    "path": "assets/pine_roots/textures/pine_roots_a_diff_2k.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/pine_roots/pine_roots_a_diff_2k.png",
+    "bytes": 19685832,
+    "sha256": "9078ad9a27be349ec433d52f5e1a2bc86798003b0f6ed4550cd193194f7ec220",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/pine_roots"
+  },
+  {
+    "asset": "pine_roots",
+    "path": "assets/pine_roots/textures/pine_roots_a_nor_gl_2k.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/pine_roots/pine_roots_a_nor_gl_2k.png",
+    "bytes": 22104744,
+    "sha256": "0fc639b61567bd7d783b791b7550c42975ea806fef57006f6feb0dd9026f7344",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/pine_roots"
+  },
+  {
+    "asset": "pine_roots",
+    "path": "assets/pine_roots/textures/pine_roots_b_diff_2k.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/pine_roots/pine_roots_b_diff_2k.png",
+    "bytes": 19911830,
+    "sha256": "e52c38c29ccc658aca0e322ec907f08a71e446b200f45d17d5226a4130efdcdb",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/pine_roots"
+  },
+  {
+    "asset": "pine_roots",
+    "path": "assets/pine_roots/textures/pine_roots_a_rough_2k.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/pine_roots/pine_roots_a_rough_2k.png",
+    "bytes": 6522326,
+    "sha256": "a3d514b09f541aaddeeb4e9d45bdbaf9ec842aabc4e91f1706d9490e837c1fee",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/pine_roots"
+  },
+  {
+    "asset": "pine_roots",
+    "path": "assets/pine_roots/textures/pine_roots_b_rough_2k.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/pine_roots/pine_roots_b_rough_2k.png",
+    "bytes": 6670896,
+    "sha256": "6362d699540f61d4541e88e2f7a2cf1a8acf309f4f73c5856e5bf30f642d585e",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/pine_roots"
+  },
+  {
+    "asset": "pine_roots",
+    "path": "assets/pine_roots/textures/pine_roots_b_nor_gl_2k.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/pine_roots/pine_roots_b_nor_gl_2k.png",
+    "bytes": 22079908,
+    "sha256": "53d4be452e1c008657e47a320c897f5a933a3a1dae627f567bf4f466e9a623e5",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/pine_roots"
+  },
+  {
+    "asset": "forest_leaves_02",
+    "path": "assets/forest_leaves_02/forest_leaves_02_diff_4k.jpg",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/forest_leaves_02/forest_leaves_02_diffuse_4k.jpg",
+    "bytes": 5749081,
+    "sha256": "e713aa7e0d7cf16705dd3ad5c32d72e5495b45957b5264a3f3b448111e9e9178",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/forest_leaves_02"
+  },
+  {
+    "asset": "forest_leaves_02",
+    "path": "assets/forest_leaves_02/forest_leaves_02_nor_gl_4k.jpg",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/forest_leaves_02/forest_leaves_02_nor_gl_4k.jpg",
+    "bytes": 8627256,
+    "sha256": "0666140761d688ae6b246103676ee0d131588ee29326edec4803c50c61fa9d9b",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/forest_leaves_02"
+  },
+  {
+    "asset": "forest_leaves_02",
+    "path": "assets/forest_leaves_02/forest_leaves_02_rough_4k.jpg",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/forest_leaves_02/forest_leaves_02_rough_4k.jpg",
+    "bytes": 2559680,
+    "sha256": "53ee3c8a54c68423d95b88786ae02a5478f39a7e8b30a2bfb3851bd4e7f7a8e1",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/forest_leaves_02"
+  },
+  {
+    "asset": "forest_leaves_02",
+    "path": "assets/forest_leaves_02/forest_leaves_02_disp_4k.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/4k/forest_leaves_02/forest_leaves_02_disp_4k.png",
+    "bytes": 24631744,
+    "sha256": "433beba19164c6edc9a2375997f0f19abae607feac9df8d5a0b71701772553f5",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/forest_leaves_02"
+  },
+  {
+    "asset": "forest_slope",
+    "path": "assets/forest_slope/forest_slope_4k.hdr",
+    "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/forest_slope_4k.hdr",
+    "bytes": 29764886,
+    "sha256": "112c4035c56e7699637ec798800edaade535cba6f3bfb8b0a602172c4ec30e52",
+    "license": "CC0-1.0",
+    "source": "https://polyhaven.com/a/forest_slope"
+  }
+]
