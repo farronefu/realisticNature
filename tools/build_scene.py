@@ -44,21 +44,21 @@ def pbr(name,folder,prefix,uvscale=1):
             l.new(nm.outputs[0],p.inputs['Normal'])
         else:l.new(t.outputs['Color'],p.inputs[sock])
     return m
-groundmat=pbr('Forest floor | scanned 4K / 2m repeat',A/'forest_leaves_02','forest_leaves_02')
+groundmat=pbr('Forest floor | scanned 4K / fine litter',A/'forest_leaves_02','forest_leaves_02')
 bark=pbr('Exposed roots | scanned bark',A/'bark_brown_01','bark_brown_01')
 # World-space box projection prevents the top-down UV stretch on steep banks.
-nt=groundmat.node_tree;geo=nt.nodes.new('ShaderNodeNewGeometry');mapping=nt.nodes.new('ShaderNodeVectorMath');mapping.operation='SCALE';mapping.inputs[3].default_value=.5;nt.links.new(geo.outputs['Position'],mapping.inputs[0])
+nt=groundmat.node_tree;geo=nt.nodes.new('ShaderNodeNewGeometry');mapping=nt.nodes.new('ShaderNodeVectorMath');mapping.operation='SCALE';mapping.inputs[3].default_value=1.5;nt.links.new(geo.outputs['Position'],mapping.inputs[0])
 for texnode in [n for n in nt.nodes if n.type=='TEX_IMAGE']:
     texnode.projection='BOX';texnode.projection_blend=.28;nt.links.new(mapping.outputs[0],texnode.inputs['Vector'])
 p=next(n for n in nt.nodes if n.type=='BSDF_PRINCIPLED');albedo=p.inputs['Base Color'].links[0].from_socket
-mul=nt.nodes.new('ShaderNodeVectorMath');mul.operation='MULTIPLY';mul.inputs[1].default_value=(.64,.71,.68);nt.links.new(albedo,mul.inputs[0]);nt.links.new(mul.outputs[0],p.inputs['Base Color'])
+mul=nt.nodes.new('ShaderNodeVectorMath');mul.operation='MULTIPLY';mul.inputs[1].default_value=(.45,.55,.48);nt.links.new(albedo,mul.inputs[0]);nt.links.new(mul.outputs[0],p.inputs['Base Color'])
 heighttex=nt.nodes.new('ShaderNodeTexImage');heighttex.image=image(A/'forest_leaves_02/forest_leaves_02_disp_4k.png',True);heighttex.projection='BOX';heighttex.projection_blend=.28;nt.links.new(mapping.outputs[0],heighttex.inputs[0])
-gb=nt.nodes.new('ShaderNodeBump');gb.inputs['Strength'].default_value=.5;gb.inputs['Distance'].default_value=.035;nt.links.new(heighttex.outputs[0],gb.inputs['Height']);nt.links.new(gb.outputs[0],p.inputs['Normal'])
+gb=nt.nodes.new('ShaderNodeBump');gb.inputs['Strength'].default_value=.45;gb.inputs['Distance'].default_value=.012;nt.links.new(heighttex.outputs[0],gb.inputs['Height']);nt.links.new(gb.outputs[0],p.inputs['Normal'])
 # Fine rough bark without a large flattened stripe around a thin root.
 nt=bark.node_tree;p=next(n for n in nt.nodes if n.type=='BSDF_PRINCIPLED')
 for slot in ['Base Color','Normal']:
     for li in list(p.inputs[slot].links):nt.links.remove(li)
-p.inputs['Base Color'].default_value=(.054,.036,.020,1);p.inputs['Roughness'].default_value=.88
+p.inputs['Base Color'].default_value=(.10,.065,.032,1);p.inputs['Roughness'].default_value=.88
 nn=nt.nodes.new('ShaderNodeTexNoise');nn.inputs['Scale'].default_value=62;nn.inputs['Detail'].default_value=4
 bm=nt.nodes.new('ShaderNodeBump');bm.inputs['Strength'].default_value=.35;bm.inputs['Distance'].default_value=.006;nt.links.new(nn.outputs['Fac'],bm.inputs['Height']);nt.links.new(bm.outputs[0],p.inputs['Normal'])
 def center(y):return .9*math.sin(y*.22)+.04*max(y,0)
@@ -72,7 +72,7 @@ v=[];uv=[];faces=[];nx=250;ny=420
 for j in range(ny+1):
     y=-10+j*48/ny
     for i in range(nx+1):
-        x=-15+i*30/nx;v.append((x,y,height(x,y)));uv.append((x/2,y/2))
+        x=-15+i*30/nx;v.append((x,y,height(x,y)));uv.append((x*1.5,y*1.5))
 for j in range(ny):
     for i in range(nx):
         k=j*(nx+1)+i;faces.append((k,k+1,k+nx+2,k+nx+1))
@@ -116,6 +116,8 @@ shrubs=import_models('shrub_04',[f'shrub_04_{c}_LOD0' for c in 'abcd'])
 logs=import_models('dead_tree_trunk',['dead_tree_trunk'])
 trees=import_models('fir_tree_01',[f'fir_tree_01_{c}_LOD1' for c in 'abc']+[f'fir_tree_01_trunk_{c}' for c in 'abc'])
 roots=import_models('pine_roots')
+
+bark_debris=import_models('bark_debris_01',[f'bark_debris_01_{c}_LOD0' for c in 'abcd'])
 moss=import_models('moss_01',['moss_01_a_LOD0','moss_01_b_LOD0','moss_01_c_LOD0'])
 def place(src,x,y,z=None,s=1,rot=None,group='02 Hero rocks',name=None):
     o=src.copy();o.data=src.data;link(o,group);o.location=(x,y,height(x,y) if z is None else z)
@@ -199,47 +201,17 @@ def tube(name,points,radii,mat,group,sides=7):
         for j in range(sides):
             a=i*sides+j;b=i*sides+(j+1)%sides;ff.append((a,b,b+sides,a+sides))
     return mesh(name,vv,ff,mat,group,uv)
-# Roots follow the bank, taper, and emerge / re-enter the terrain.
-for i in range(135):
-    y=r.uniform(-5,20);sgn=r.choice([-1,1]);x=center(y)+sgn*r.uniform(1.5,4.5);length=r.uniform(.4,2.3);pts=[];rr=[]
-    rad=r.uniform(.012,.048)
-    for j in range(9):
-        t=j/8;xx=x-sgn*length*.5*t+.08*math.sin(t*8+i);yy=y+length*t
-        pts.append((xx,yy,height(xx,yy)+.04+math.sin(t*math.pi)*r.uniform(.02,.07)));rr.append(rad*(1-.92*t))
-    tube('Exposed tapering root',pts,rr,bark,'05 Roots and deadwood')
-for j,y in enumerate([-2.1,1.4,4.3,8.5,12.2]):
-    pts=[];rr=[]
-    for k in range(19):
-        t=k/18;xx=center(y)-1.8+3.8*t;yy=y+.35*math.sin(t*3.14)+.12*math.sin(t*9+j)
-        pts.append((xx,yy,height(xx,yy)+.025+.025*math.sin(t*3.14)));rr.append(.043*(1-.8*t))
-    tube('Old root crossing the trail',pts,rr,bark,'05 Roots and deadwood',11)
+for i in range(360):
+    y=r.uniform(-6,24);x=r.uniform(-6,6);scale=r.uniform(.12,.62)
+    dzdx=(height(x+.08,y)-height(x-.08,y))/.16;dzdy=(height(x,y+.08)-height(x,y-.08))/.16
+    normal=Vector((-dzdx,-dzdy,1)).normalized()
+    rot=normal.to_track_quat('Z','Y').to_matrix()@Matrix.Rotation(r.random()*math.tau,3,'Z')
+    place(r.choice(bark_debris),x,y,height(x,y)-.008,scale,rot=rot.to_euler(),group='06 Leaf litter')
 for i in range(450):
     y=r.uniform(-6,27);x=r.uniform(-6,6);a=r.random()*6.28;le=r.uniform(.04,.38);pts=[]
     for j in range(3):
         t=j/2;xx=x+math.cos(a)*le*t;yy=y+math.sin(a)*le*t;pts.append((xx,yy,height(xx,yy)+.025+(.018 if j==1 else 0)))
     tube('Dry twig',pts,[.006,.004,.0015],bark,'06 Leaf litter',5)
-# Curled leaf silhouettes provide contact shadows that flat terrain maps cannot.
-leafm=[]
-for i,col in enumerate([(.12,.065,.025,1),(.21,.12,.052,1),(.09,.068,.036,1),(.28,.17,.075,1),(.15,.105,.057,1)]):
-    ma=bpy.data.materials.new('Decaying leaf %d'%i);ma.use_nodes=True;p=ma.node_tree.nodes.get('Principled BSDF');p.inputs['Base Color'].default_value=col;p.inputs['Roughness'].default_value=.72
-    tex=ma.node_tree.nodes.new('ShaderNodeTexNoise');tex.inputs['Scale'].default_value=44;tex.inputs['Detail'].default_value=3
-    bump=ma.node_tree.nodes.new('ShaderNodeBump');bump.inputs['Strength'].default_value=.3;bump.inputs['Distance'].default_value=.0007;ma.node_tree.links.new(tex.outputs['Fac'],bump.inputs['Height']);ma.node_tree.links.new(bump.outputs[0],p.inputs['Normal']);leafm.append(ma)
-vv=[];ff=[];inds=[]
-for i in range(12500):
-    y=r.uniform(-7,22);x=r.uniform(-7,7);d=abs(x-center(y))
-    if d<.55 and r.random()<.55:continue
-    a=r.random()*6.28;le=r.uniform(.025,.095);width=le*r.uniform(.25,.6);curl=r.uniform(.003,.018);z=height(x,y)+.012;base=len(vv)
-    for j in range(5):
-        t=j/4;w=math.sin(math.pi*t)*width
-        for s in [-1,0,1]:
-            dx=(t-.5)*le*2;dy=s*w;zz=z+curl*(abs(t-.5)*2)**2+(abs(s)*r.uniform(.001,.009))
-            vv.append((x+math.cos(a)*dx-math.sin(a)*dy,y+math.sin(a)*dx+math.cos(a)*dy,zz))
-    mi=r.randrange(len(leafm))
-    for j in range(4):
-        for k in range(2):q=base+j*3+k;ff.append((q,q+1,q+4,q+3));inds.append(mi)
-ob=mesh('Curled and overlapping fallen leaves',vv,ff,None,'06 Leaf litter')
-for ma in leafm:ob.data.materials.append(ma)
-for p,i in zip(ob.data.polygons,inds):p.material_index=i
 # Upper broadleaf branches break up the conifer canopy with real leaf silhouettes.
 for i in range(160):
     x=r.uniform(-12,12);y=r.uniform(-3,35);z=r.uniform(6.2,12)
@@ -309,7 +281,7 @@ if qfolder.exists():
         opacity=nn.new('ShaderNodeTexImage');opacity.image=image(next(qfolder.glob('*_Opacity.jpg')),True);opacity.projection='BOX';opacity.projection_blend=.3;ll.new(pos.outputs[0],opacity.inputs[0])
         coverage=nn.new('ShaderNodeMath');coverage.operation='MULTIPLY';ll.new(ramp.outputs[0],coverage.inputs[0]);ll.new(opacity.outputs['Color'],coverage.inputs[1])
         mix=nn.new('ShaderNodeMixShader');ll.new(coverage.outputs[0],mix.inputs[0]);ll.new(old,mix.inputs[1]);ll.new(mossbs.outputs[0],mix.inputs[2]);ll.new(mix.outputs[0],output.inputs['Surface'])
-    for i in range(36):
+    for i in range(100):
         y=r.uniform(-4.5,22);x=center(y)+r.choice([-1,1])*r.uniform(1.0,3.0);size=r.uniform(.45,1.45);ang=r.random()*math.tau
         vv=[];ff=[];uu=[];N=16
         for j in range(N+1):
@@ -321,6 +293,10 @@ if qfolder.exists():
                 a=j*(N+1)+k;ff.append((a,a+1,a+N+2,a+N+1))
         ob=mesh('Megascans moss decal %02d'%i,vv,ff,q,'01 Terrain',uu);ob['source']='https://www.fab.com/listings/a9a94514-dfba-43cb-92bc-c550d79b8d5d';ob['license']='Fab Standard License; external maps not redistributed'
 print('SCATTER READY',len(bpy.data.objects),flush=True)
+# Broken rock strata interrupt the eroded bank at several physical scales.
+for i in range(80):
+    y=r.uniform(-5,25);x=center(y)+r.choice([-1,1])*r.uniform(1.25,2.8);scale=r.uniform(.22,.48)
+    place(r.choice(rocks),x,y,height(x,y)-.42*scale,scale,rot=(r.uniform(-.4,.4),r.uniform(-.4,.4),r.random()*math.tau),group='02 Hero rocks')
 # Physically thin foliage: keep authored alpha and use gentle diffuse transmission.
 for mat in bpy.data.materials:
     if not mat.use_nodes:continue
@@ -382,6 +358,6 @@ bpy.ops.file.make_paths_relative()
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'scenes/ForestPath.blend'),compress=True)
 if args.preview:
     scene.render.resolution_percentage=42;scene.cycles.samples=64;scene.cycles.adaptive_threshold=.035;scene.cycles.adaptive_min_samples=16
-    scene.render.filepath=str(ROOT/'renders/preview_09.png')
+    scene.render.filepath=str(ROOT/'renders/preview_13.png')
 bpy.ops.render.render(write_still=True)
 print('FOREST_RENDER_COMPLETE',flush=True)

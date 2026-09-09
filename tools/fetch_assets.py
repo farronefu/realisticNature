@@ -16,7 +16,7 @@ def fetch(job):
     return {'asset':asset,'path':str(dest.relative_to(ROOT)).replace('\\','/'),'url':spec['url'],'bytes':dest.stat().st_size,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest(),'license':'CC0-1.0','source':'https://polyhaven.com/a/'+asset}
 def main():
     p=argparse.ArgumentParser();p.add_argument('--extra-only',action='store_true');a=p.parse_args()
-    models={'pine_roots':'2k'}
+    models={'pine_roots':'2k','bark_debris_01':'4k'}
     if not a.extra_only: models.update({'fern_02':'4k','rock_moss_set_01':'4k','dead_tree_trunk':'4k','shrub_04':'4k','fir_tree_01':'2k','moss_01':'2k'})
     jobs=[]
     for asset,res in models.items():
