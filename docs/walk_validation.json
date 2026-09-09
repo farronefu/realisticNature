@@ -1,0 +1,30 @@
+{
+  "blender": "5.2.1 LTS",
+  "file": "ForestPath_Walk_Packed.blend",
+  "engine": "BLENDER_EEVEE",
+  "packed_images": 59,
+  "camera_unchanged": true,
+  "start_eye_m": [
+    -0.10000000149011612,
+    -4.699999809265137,
+    1.6516364812850952
+  ],
+  "eye_height_m": 1.65,
+  "walk_speed_m_s": 1.8,
+  "gravity": true,
+  "viewports_checked": 1,
+  "native_walk_operator_available": true,
+  "reopened_shading": [
+    "SOLID"
+  ],
+  "launcher_shading": "RENDERED",
+  "interactive_input_tested": false,
+  "eevee_test_frame": {
+    "resolution": [
+      1008,
+      672
+    ],
+    "render_seconds": 46.24,
+    "repeated_registration_ok": true
+  }
+}

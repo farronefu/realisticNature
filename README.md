@@ -4,6 +4,10 @@ Megascansの苔とPoly Havenのスキャン素材を使って制作した、Blen
 
 ![Forest path render](renders/forest_path.jpg)
 
+## キーボードで歩く
+
+Windowsで `Start_Walk.cmd` をダブルクリックし、Blenderの3D画面上部にある **「森を歩く」** を押します。WASDで移動、マウスで見回し、左クリックで終了できます。[詳しい操作方法](docs/WALK.md)。歩行にはEEVEEのリアルタイム表示を使います。
+
 ## 開く
 
 `scenes/ForestPath.blend` をBlender 5.2.1以降で開きます。カメラは設定済みです。テンキー0でカメラ表示、F12でレンダリングできます。現在のローカル制作フォルダーには使用素材が配置されています。
