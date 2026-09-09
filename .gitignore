@@ -5,4 +5,5 @@ local/
 __pycache__/
 *.log
 renders/*.exr
+renders/forest_path.png
 optix7cache.db*

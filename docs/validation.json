@@ -1,0 +1,44 @@
+{
+  "blender": "5.2.1 LTS",
+  "engine": "CYCLES",
+  "device": [
+    [
+      "NVIDIA GeForce RTX 3060 Ti",
+      "OPTIX"
+    ]
+  ],
+  "render_seconds": 983.94,
+  "resolution": [
+    3840,
+    2560
+  ],
+  "maximum_samples": 512,
+  "adaptive_noise_threshold": 0.007000000216066837,
+  "minimum_samples": 64,
+  "denoiser": "OPENIMAGEDENOISE",
+  "view_transform": "AgX",
+  "look": "AgX - Medium High Contrast",
+  "exposure": 0.4000000059604645,
+  "camera_mm": 32.0,
+  "f_stop": 8.0,
+  "focus_distance_m": 10.0,
+  "objects": 5381,
+  "mesh_objects": 5379,
+  "unique_meshes": 585,
+  "missing_images": [],
+  "megascans_materials": [
+    "Megascans | Tileable Moss Patches sfdnqii | 4K"
+  ],
+  "collections": {
+    "01 Terrain": 102,
+    "02 Hero rocks": 187,
+    "03 Forest trees": 551,
+    "04 Ferns and understory": 2652,
+    "05 Roots and deadwood": 71,
+    "06 Leaf litter": 1040,
+    "07 Canopy": 775,
+    "08 Lighting": 2,
+    "09 Camera": 1
+  },
+  "imagegen_used": false
+}

@@ -13,7 +13,7 @@ Megascansの苔とPoly Havenのスキャン素材を使って制作した、Blen
 | ファイル | 内容 |
 |---|---|
 | `scenes/ForestPath.blend` | 編集可能な完成シーン、カメラ、照明、マテリアル、配置 |
-| `renders/forest_path.png` | 3840×2560、16bit PNG |
+| `renders/forest_path.png` | ローカル納品用の3840×2560、16bit PNG。Git対象外 |
 | `renders/forest_path.jpg` | 同じレンダリングの軽量な閲覧版 |
 | `renders/forest_path_linear.exr` | ローカル納品用のシーンリニア16bit EXR。Git対象外 |
 | `tools/build_scene.py` | シード固定のシーン構築スクリプト |
